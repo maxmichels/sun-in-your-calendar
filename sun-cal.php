@@ -74,10 +74,6 @@ DTSTAMP;VALUE=DATE:<?= date('Ymd\THis', time()) . '
 ' ?>
 DTSTART;VALUE=DATE:<?= dayToCal($val['results']['sunrise']) . '
 ' ?>
-<?php if ($location == 'show') { ?>
-<?= 'LOCATION:' . $json['city']['name'] . '
-' ?> 
-<?php } ?>
 X-MICROSOFT-CDO-ALLDAYEVENT:TRUE 
 URL;VALUE=URI:http://maxmichels.de 
 DTEND;VALUE=DATE:<?= nextDayToCal($val['results']['sunrise']) . '
