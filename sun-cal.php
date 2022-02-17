@@ -11,6 +11,11 @@ if (isset($_GET['days'])) {
 } else {
   $days = 30;
 }
+if(!isset($lat) && !isset($lon)) {
+  header("HTTP/1.1 500 Internal Server Error");
+  exit;
+}
+
 // Loading json
 $list = array();
 for ($i=0; $i < $days; $i++) {
