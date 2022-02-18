@@ -15,6 +15,11 @@ if (isset($_GET['days'])) {
 } else {
   $days = 30;
 }
+if (isset($_GET['detailedDesc'])) {
+  $detailedDesc = $_GET['detailedDesc'];
+} else {
+  $detailedDesc = 0;
+}
 $erroroutput = false;
 
 // Loading json
@@ -45,8 +50,21 @@ function nextDayToCal($timestamp) {
   return date('Ymd', strtotime('+1 day', strtotime($timestamp)));
 }
 function makeDescriptions($data) {
+  global $lat, $lon, $detailedDesc;
   $desc = '🌅 Sunrise ' . date("G:i", strtotime($data['sunrise'])) . '\n';
   $desc .= '🌇 Sunset ' . date("G:i", strtotime($data['sunset'])) . '\n\n';
+  if($detailedDesc = 1) {
+    $desc .= 'Lentgh of day ' . sprintf('%02d:%02d:%02d', ($data['day_length']/ 3600),($data['day_length']/ 60 % 60), $data['day_length']% 60) . '\n\n';
+    $desc .= 'Solar noon ' . date("G:i", strtotime($data['solar_noon'])) . '\n';
+    $desc .= 'Civil twilight begin ' . date("G:i", strtotime($data['civil_twilight_begin'])) . '\n';
+    $desc .= 'Civil twilight end ' . date("G:i", strtotime($data['civil_twilight_end'])) . '\n';
+    $desc .= 'Nautical twilight begin ' . date("G:i", strtotime($data['nautical_twilight_begin'])) . '\n';
+    $desc .= 'Nautical twilight end ' . date("G:i", strtotime($data['nautical_twilight_end'])) . '\n';
+    $desc .= 'Astronomical twilight begin ' . date("G:i", strtotime($data['astronomical_twilight_begin'])) . '\n';
+    $desc .= 'Astronomical twilight end ' . date("G:i", strtotime($data['astronomical_twilight_end'])) . '\n\n';
+  }
+  
+  $desc .= 'Sun data for Lat: ' . $lat . ' Lon: ' . $lon .  '\n\n';
   $desc .= '🙌 Thanks for using Sun in Your Calendar, please consider supporting sun.maxmichels.de';
 
   return $desc;
