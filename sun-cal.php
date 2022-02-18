@@ -10,6 +10,11 @@ if (isset($_GET['lon'])) {
 } else {
   $lon = 0;
 }
+if (isset($_GET['city'])) {
+  $location = $_GET['city'];
+} else {
+  $location = "";
+}
 if (isset($_GET['days'])) {
   $days = $_GET['days'];
   // allow maxium 60 days to prevent timeout for webcal
@@ -26,9 +31,12 @@ if (isset($_GET['detailedDesc'])) {
 }
 $erroroutput = false;
 
+// get location once
+getLocation();
+
 // Loading json
 $list = array();
-if($lat===0 | $lon===0) {
+if(($lat===0 | $lon===0) | $location==="") {
   $erroroutput = true;
 } else {
   for ($i=0; $i < $days; $i++) {
@@ -80,6 +88,26 @@ function makeTitle($data) {
 
   return $title;
 }
+function getLocation(){
+  global $lat, $lon, $location;
+  // OSM require header
+  $opts = array('http'=>array('header'=>"User-Agent: sun-in-your-calendar\r\n"));
+  $context = stream_context_create($opts);
+
+  if( ($lat===0 | $lon===0) ) {
+    $string="https://nominatim.openstreetmap.org/search?q=" . $location . "&city=" . $location . "&format=jsonv2&polygon_geojson=0&addressdetails=1&limit=1";
+    $result = file_get_contents($string, false, $context);
+    $json = json_decode($result, true);
+    $lat = $json['0']['lat'];
+    $lon = $json['0']['lon'];
+    $location = $json['0']['address']['city'];
+  } elseif($lat!=0 & $lon!=0) {
+    $string = "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" . $lat . "&lon=" . $lon;
+    $result = file_get_contents($string, false, $context);
+    $json = json_decode($result, true);
+    $location = $json['address']['city'];
+  }
+}
 
 // 3. Echo out the ics file's contents
 if (!$erroroutput) {
@@ -103,6 +131,10 @@ DTSTAMP;VALUE=DATE:<?= date('Ymd\THis', time()) . '
 ' ?>
 DTSTART;VALUE=DATE:<?= dayToCal($val['results']['sunrise']) . '
 ' ?>
+<?php if ($location !== '') { ?>
+<?= 'LOCATION:' . $location . '
+' ?> 
+<?php } ?>
 X-MICROSOFT-CDO-ALLDAYEVENT:TRUE 
 URL;VALUE=URI:http://maxmichels.de 
 DTEND;VALUE=DATE:<?= nextDayToCal($val['results']['sunrise']) . '
