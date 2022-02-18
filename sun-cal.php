@@ -12,6 +12,10 @@ if (isset($_GET['lon'])) {
 }
 if (isset($_GET['days'])) {
   $days = $_GET['days'];
+  // allow maxium 60 days to prevent timeout for webcal
+  if($days > 60) {
+    $days=60;
+  }
 } else {
   $days = 30;
 }
