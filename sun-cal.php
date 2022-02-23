@@ -21,6 +21,9 @@ if (isset($_GET['days'])) {
   if($days > 60) {
     $days=60;
   }
+  if ($days<1) {
+    $days=1;
+  }
 } else {
   $days = 30;
 }
