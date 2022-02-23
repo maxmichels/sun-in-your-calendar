@@ -85,9 +85,9 @@ function makeDescriptions($data) {
   return $desc;
 }
 function makeTitle($data) {
-  $title = "↑SR " . date('G:i', strtotime($data['sunrise']));
+  $title = "↑SR " . date('H:i', strtotime($data['sunrise']));
   $title .= " / ";
-  $title .= "↓SS " . date('G:i', strtotime($data['sunset']));
+  $title .= "↓SS " . date('H:i', strtotime($data['sunset']));
 
   return $title;
 }
