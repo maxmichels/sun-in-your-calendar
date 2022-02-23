@@ -41,3 +41,8 @@ Your Browser | Emoji code
 🌅 | `:sunrise:`
 🌇  | `:city_sunset:`
 🙌 | `:raised_hands:`
+
+---
+### Credits
+
+This script is based on the Idea of [Weather-in-your-calendar](https://github.com/vejnoe/weather-in-your-calendar/) by [vejnoe](https://vejnoe.dk/) / [@vejnoe](https://github.com/vejnoe)
