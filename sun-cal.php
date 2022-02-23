@@ -65,8 +65,8 @@ function makeDescriptions($data) {
   global $lat, $lon, $detailedDesc;
   $desc = '🌅 Sunrise ' . date("G:i", strtotime($data['sunrise'])) . '\n';
   $desc .= '🌇 Sunset ' . date("G:i", strtotime($data['sunset'])) . '\n\n';
-  if($detailedDesc = 1) {
-    $desc .= 'Lentgh of day ' . sprintf('%02d:%02d:%02d', ($data['day_length']/ 3600),($data['day_length']/ 60 % 60), $data['day_length']% 60) . '\n\n';
+  if($detailedDesc == 1) {
+    $desc .= 'Lentgh of day ' . sprintf('%02d:%02d:%02d', ($data['day_length']/ 3600),((int)($data['day_length']/ 60) % 60), $data['day_length']% 60) . '\n\n';
     $desc .= 'Solar noon ' . date("G:i", strtotime($data['solar_noon'])) . '\n';
     $desc .= 'Civil twilight begin ' . date("G:i", strtotime($data['civil_twilight_begin'])) . '\n';
     $desc .= 'Civil twilight end ' . date("G:i", strtotime($data['civil_twilight_end'])) . '\n';
