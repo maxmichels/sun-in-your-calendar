@@ -1,4 +1,4 @@
-# Sun in your Calendar   ⛅️ 26°
+# Sun in your Calendar   ↑SR 06:17 / ↓SS 17:59
 
 This is the code powering the [Sun in your Calendar](https://sun.maxmichels.de/?from=github.com).
 
