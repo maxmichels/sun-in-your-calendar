@@ -19,13 +19,13 @@ https://yourdomain.com/sun-cal.php?city=München&days=30&detailedDesc=1
 
 #### Options
 
-Key | Values
---- | ------
-`city` | `city name` or <br>`city name,state code` or <br>`city name,state code,country code`
-`lat` | `latitude of the location`
-`lon` | `longtitude of the location`
-`detailedDesc` | `0` or `1`
-`days` | `number of days`
+Key | Values | task
+--- | ------ | ---
+`city` | `city name` or <br>`city name,state code` or <br>`city name,state code,country code` | Specify location
+`lat` | `latitude of the location` | if `city` is not provided the location has to be specified by `lat` and `lon`
+`lon` | `longtitude of the location`| if `city` is not provided the location has to be specified by `lat` and `lon`
+`detailedDesc` | `0` or `1` | if set to `1` there will be more Information about sun in the notes of the event
+`days` | `1` to `60` | Number of days which should be shown in the calendar. Default is 30, maximum is 60.
 
 ## System Requirements
 
