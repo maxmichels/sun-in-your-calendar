@@ -26,6 +26,7 @@ Key | Values | task
 `lon` | `longtitude of the location`| if `city` is not provided the location has to be specified by `lat` and `lon`
 `detailedDesc` | `0` or `1` | if set to `1` there will be more Information about sun in the notes of the event
 `days` | `1` to `60` | Number of days which should be shown in the calendar. Default is 30, maximum is 60.
+`localTime` | `0` to `1` | If set to `1` the time in title and description will be output as local time instead of UTC.
 
 ## System Requirements
 
