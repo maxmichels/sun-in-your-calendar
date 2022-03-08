@@ -91,17 +91,17 @@ function getTime($timestamp) {
 }
 function makeDescriptions($data) {
   global $lat, $lon, $detailedDesc;
-  $desc = '🌅 Sunrise ' . date("G:i", strtotime($data['sunrise'])) . '\n';
-  $desc .= '🌇 Sunset ' . date("G:i", strtotime($data['sunset'])) . '\n\n';
+  $desc = '🌅 Sunrise ' . getTime($data['sunrise']) . '\n';
+  $desc .= '🌇 Sunset ' . getTime($data['sunset']) . '\n\n';
   if($detailedDesc == 1) {
     $desc .= 'Lentgh of day ' . sprintf('%02d:%02d:%02d', ($data['day_length']/ 3600),((int)($data['day_length']/ 60) % 60), $data['day_length']% 60) . '\n\n';
-    $desc .= 'Solar noon ' . date("G:i", strtotime($data['solar_noon'])) . '\n';
-    $desc .= 'Civil twilight begin ' . date("G:i", strtotime($data['civil_twilight_begin'])) . '\n';
-    $desc .= 'Civil twilight end ' . date("G:i", strtotime($data['civil_twilight_end'])) . '\n';
-    $desc .= 'Nautical twilight begin ' . date("G:i", strtotime($data['nautical_twilight_begin'])) . '\n';
-    $desc .= 'Nautical twilight end ' . date("G:i", strtotime($data['nautical_twilight_end'])) . '\n';
-    $desc .= 'Astronomical twilight begin ' . date("G:i", strtotime($data['astronomical_twilight_begin'])) . '\n';
-    $desc .= 'Astronomical twilight end ' . date("G:i", strtotime($data['astronomical_twilight_end'])) . '\n\n';
+    $desc .= 'Solar noon ' . getTime($data['solar_noon']) . '\n';
+    $desc .= 'Civil twilight begin ' . getTime($data['civil_twilight_begin']) . '\n';
+    $desc .= 'Civil twilight end ' . getTime($data['civil_twilight_end']) . '\n';
+    $desc .= 'Nautical twilight begin ' . getTime($data['nautical_twilight_begin']) . '\n';
+    $desc .= 'Nautical twilight end ' . getTime($data['nautical_twilight_end']) . '\n';
+    $desc .= 'Astronomical twilight begin ' . getTime($data['astronomical_twilight_begin']) . '\n';
+    $desc .= 'Astronomical twilight end ' . getTime($data['astronomical_twilight_end']) . '\n\n';
   }
   
   $desc .= 'Sun data for Lat: ' . $lat . ' Lon: ' . $lon .  '\n\n';
@@ -110,9 +110,9 @@ function makeDescriptions($data) {
   return $desc;
 }
 function makeTitle($data) {
-  $title = "↑SR " . date('H:i', strtotime($data['sunrise']));
+  $title = "↑SR " . getTime($data['sunrise']);
   $title .= " / ";
-  $title .= "↓SS " . date('H:i', strtotime($data['sunset']));
+  $title .= "↓SS " . getTime($data['sunset']);
 
   return $title;
 }
