@@ -1,4 +1,6 @@
 <?php
+require_once './api_key.php'; // Get a API Key at https://openweathermap.org/appid
+
 // Loading variables from URL
 if (isset($_GET['lat'])) {
   $lat = $_GET['lat'];
@@ -32,6 +34,13 @@ if (isset($_GET['detailedDesc'])) {
 } else {
   $detailedDesc = 0;
 }
+if (isset($_GET['localTime'])) {
+  $localTime = $_GET['localTime'];
+} else {
+  $localTime = 0;
+}
+$timezoneUntil = 0;
+$timeShift = 0;
 $erroroutput = false;
 
 // get location once
@@ -63,6 +72,22 @@ function dayToCal($timestamp) {
 }
 function nextDayToCal($timestamp) {
   return date('Ymd', strtotime('+1 day', strtotime($timestamp)));
+}
+function getTime($timestamp) {
+  global $localTime, $timezoneUntil, $lat, $lon, $timeShift, $api_key_timezonedb;
+  if($localTime == 1) {
+    if ( strtotime($timestamp) > $timezoneUntil) {
+      $string = file_get_contents('http://api.timezonedb.com/v2.1/get-time-zone?key=' . $api_key_timezonedb . '&format=json&by=position&lat=' . $lat . '&lng=' . $lon . '&time=' . strtotime($timestamp));
+      $json = json_decode($string, true);
+      $timezoneUntil = $json['zoneEnd'];
+      $timeShift = $json['gmtOffset'];
+    }
+    $time = date("H:i", strtotime("$timeShift seconds", strtotime($timestamp)));
+    $timeText = $time . '\n';
+  } else {
+    $timeText = date("H:i", strtotime($timestamp)) . 'Z\n';
+  }
+  return $timeText;
 }
 function makeDescriptions($data) {
   global $lat, $lon, $detailedDesc;
