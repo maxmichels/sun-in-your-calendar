@@ -123,7 +123,7 @@ function getLocation(){
   $context = stream_context_create($opts);
 
   if( ($lat===0 | $lon===0) ) {
-    $string="https://nominatim.openstreetmap.org/search?q=" . $location . "&city=" . $location . "&format=jsonv2&polygon_geojson=0&addressdetails=1&limit=1";
+    $string="https://nominatim.openstreetmap.org/search?&city=" . $location . "&format=jsonv2&polygon_geojson=0&addressdetails=1&limit=1";
     $result = file_get_contents($string, false, $context);
     $json = json_decode($result, true);
     $lat = $json['0']['lat'];
